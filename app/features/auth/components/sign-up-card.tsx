@@ -1,16 +1,32 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 import DottedSeparator from "@/components/dotted-separator";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
-export default function SignInCard() {
+export default function SignUpCard() {
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
-      <CardHeader className="flex items-center justify-center text-center p-7">
-        <CardTitle className="text-2xl">Welcome back!</CardTitle>
+      <CardHeader className="flex flex-col items-center justify-center text-center p-7">
+        <CardTitle className="text-2xl">SignUp</CardTitle>
+        <CardDescription>
+          By signing up, you agree to our{" "}
+          <Link href="/privacy">
+            <span className="text-blue-700">Privacy Policy</span>
+          </Link>{" "}
+          and{" "}
+          <Link href="/terms">
+            <span className="text-blue-700">Terms of Service</span>
+          </Link>
+        </CardDescription>
       </CardHeader>
       <div className="px-7">
         <DottedSeparator />
@@ -22,18 +38,26 @@ export default function SignInCard() {
             type="email"
             value={""}
             onChange={() => {}}
-            placeholder="Enter password"
+            placeholder="Enter your name"
             disabled={false}
-            min={8}
-            max={256}
+          />
+          <Input
+            required
+            type="email"
+            value={""}
+            onChange={() => {}}
+            placeholder="Enter email address"
+            disabled={false}
           />
           <Input
             required
             type="password"
             value={""}
             onChange={() => {}}
-            placeholder="Enter email address"
+            placeholder="Enter password"
             disabled={false}
+            min={8}
+            max={256}
           />
           <Button disabled={false} size="lg" className="w-full">
             Login
