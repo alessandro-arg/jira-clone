@@ -1,3 +1,5 @@
+"use client";
+
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,16 +24,14 @@ import {
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-
-const formSchema = z.object({
-  name: z.string().min(1, "Required"),
-  email: z.email(),
-  password: z.string().min(8, "Minimum 8 characters required"),
-});
+import { registerSchema } from "../schemas";
+import { useRegister } from "../api/use-register";
 
 export default function SignUpCard() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { mutate } = useRegister();
+
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -39,8 +39,8 @@ export default function SignUpCard() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log({ values });
+  const onSubmit = (values: z.infer<typeof registerSchema>) => {
+    mutate({ json: values });
   };
 
   return (
@@ -152,7 +152,7 @@ export default function SignUpCard() {
       </div>
       <CardContent className="p-7 flex items-center justify-center">
         <p>Already have an account?</p>
-        <Link href="/sign-up">
+        <Link href="/sign-in">
           <span className="text-blue-700">&nbsp;Login</span>
         </Link>
       </CardContent>
