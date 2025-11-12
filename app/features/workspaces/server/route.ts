@@ -7,14 +7,14 @@ import { ID } from "node-appwrite";
 
 const app = new Hono().post(
   "/",
-  zValidator("json", createWorkspaceSchema),
+  zValidator("form", createWorkspaceSchema),
   sessionMiddleware,
   async (c) => {
     const tables = c.get("tables");
     const storage = c.get("storage");
     const user = c.get("user");
 
-    const { name, image } = c.req.valid("json");
+    const { name, image } = c.req.valid("form");
 
     let uploadedImageUrl: string | undefined;
 
@@ -25,14 +25,22 @@ const app = new Hono().post(
         file: image,
       });
 
-      const arrayBuffer = await storage.getFilePreview({
-        bucketId: IMAGES_BUCKET_ID,
-        fileId: file.$id,
-      });
+      {
+        /* Free version, no paid transforms here — just point to our proxy view route */
+      }
+      uploadedImageUrl = `/api/files/${file.$id}/view`;
 
-      uploadedImageUrl = `data:image/png;base64,${Buffer.from(
-        arrayBuffer
-      ).toString("base64")}`;
+      {
+        /* Unluckly, the getFilePreview function is now only available on the paid version, so no transformation. */
+      }
+      // const arrayBuffer = await storage.getFilePreview({
+      //   bucketId: IMAGES_BUCKET_ID,
+      //   fileId: file.$id,
+      // });
+
+      // uploadedImageUrl = `data:image/png;base64,${Buffer.from(
+      //   arrayBuffer
+      // ).toString("base64")}`;
     }
 
     const workspace = await tables.createRow({

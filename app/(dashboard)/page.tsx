@@ -4,9 +4,6 @@ import { CreateWorkspaceForm } from "../features/workspaces/components/create-wo
 
 export default async function Home() {
   const user = await getCurrent();
-
-  console.log({ user });
-
   if (!user) redirect("/sign-in");
 
   return (
