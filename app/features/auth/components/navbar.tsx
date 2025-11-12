@@ -1,3 +1,4 @@
+import { MobileSidebar } from "./mobile-sidebar";
 import { UserButton } from "./user-button";
 
 export const Navbar = () => {
@@ -9,6 +10,7 @@ export const Navbar = () => {
           Monitor all of your projects and tasks
         </p>
       </div>
+      <MobileSidebar />
       <UserButton />
     </nav>
   );
