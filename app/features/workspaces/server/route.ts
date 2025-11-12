@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import { createWorkspaceSchema } from "../schemas";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { DATABASE_ID, IMAGES_BUCKET_ID, WORKSPACES_ID } from "@/config";
-import { ID } from "node-appwrite";
+import { ID, Permission, Role } from "node-appwrite";
 
 const app = new Hono().post(
   "/",
@@ -23,12 +23,13 @@ const app = new Hono().post(
         bucketId: IMAGES_BUCKET_ID,
         fileId: ID.unique(),
         file: image,
+        permissions: [Permission.read(Role.any())],
       });
 
       {
         /* Free version, no paid transforms here — just point to our proxy view route */
       }
-      uploadedImageUrl = `/api/files/${file.$id}/view`;
+      uploadedImageUrl = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${IMAGES_BUCKET_ID}/files/${file.$id}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT}`;
 
       {
         /* Unluckly, the getFilePreview function is now only available on the paid version, so no transformation. */
