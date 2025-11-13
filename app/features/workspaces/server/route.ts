@@ -1,6 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import { createWorkspaceSchema } from "../schemas";
+import { createWorkspaceSchema, updateWorkspaceSchema } from "../schemas";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import {
   DATABASE_ID,
@@ -11,6 +11,7 @@ import {
 import { ID, Permission, Query, Role } from "node-appwrite";
 import { MemberRole } from "../../members/types";
 import { generateInviteCode } from "@/lib/utils";
+import { getMember } from "../../members/utils";
 
 const app = new Hono()
   .get("/", sessionMiddleware, async (c) => {
@@ -77,6 +78,8 @@ const app = new Hono()
         // uploadedImageUrl = `data:image/png;base64,${Buffer.from(
         //   arrayBuffer
         // ).toString("base64")}`;
+      } else if (typeof image === "string") {
+        uploadedImageUrl = image;
       }
 
       const workspace = await tables.createRow({
@@ -99,6 +102,54 @@ const app = new Hono()
           workspaceId: workspace.$id,
           userId: user.$id,
           role: MemberRole.ADMIN,
+        },
+      });
+
+      return c.json({ data: workspace });
+    }
+  )
+  .patch(
+    "/:workspaceId",
+    sessionMiddleware,
+    zValidator("form", updateWorkspaceSchema),
+    async (c) => {
+      const tables = c.get("tables");
+      const storage = c.get("storage");
+      const user = c.get("user");
+
+      const { workspaceId } = c.req.param();
+      const { name, image } = c.req.valid("form");
+
+      const member = await getMember({
+        tables,
+        userId: user.$id,
+        workspaceId,
+      });
+
+      if (!member || member.role !== MemberRole.ADMIN) {
+        return c.json({ error: "Unauthorized" }, 403);
+      }
+
+      let uploadedImageUrl: string | undefined;
+
+      if (image instanceof File) {
+        const file = await storage.createFile({
+          bucketId: IMAGES_BUCKET_ID,
+          fileId: ID.unique(),
+          file: image,
+          permissions: [Permission.read(Role.any())],
+        });
+
+        uploadedImageUrl = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${IMAGES_BUCKET_ID}/files/${file.$id}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT}`;
+      }
+
+      const workspace = await tables.updateRow({
+        databaseId: DATABASE_ID,
+        tableId: WORKSPACES_ID,
+        rowId: workspaceId,
+        data: {
+          name,
+          imageUrl: uploadedImageUrl,
         },
       });
 
