@@ -1,5 +1,5 @@
 import { useMedia } from "react-use";
-import { Dialog, DialogContent } from "./ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
 import { Drawer, DrawerContent } from "./ui/drawer";
 
 interface ResponsiveModalProps {
@@ -18,7 +18,11 @@ export const ResponsiveModal = ({
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="w-full sm:max-w-lg p-0 border-none overflow-y-auto hide-scrollbar max-h-[85vh]">
+        <DialogContent
+          className="w-full sm:max-w-lg p-0 border-none overflow-y-auto hide-scrollbar max-h-[85vh]"
+          aria-describedby={undefined}
+        >
+          <DialogTitle className="sr-only">Create a workspace</DialogTitle>
           {children}
         </DialogContent>
       </Dialog>
@@ -28,7 +32,11 @@ export const ResponsiveModal = ({
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent>
-        <div className="overflow-y-auto hide-scrollbar max-h-[85vh]">
+        <div
+          className="overflow-y-auto hide-scrollbar max-h-[85vh]"
+          aria-describedby={undefined}
+        >
+          <DialogTitle className="sr-only">Create a workspace</DialogTitle>
           {children}
         </div>
       </DrawerContent>
