@@ -17,5 +17,6 @@ export const updateWorkspaceSchema = z.object({
       z.instanceof(File),
       z.string().transform((value) => (value === "" ? undefined : value)),
     ])
-    .optional(),
+    .optional()
+    .nullable(),
 });

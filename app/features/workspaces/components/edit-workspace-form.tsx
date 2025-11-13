@@ -17,13 +17,13 @@ import {
 import DottedSeparator from "@/components/dotted-separator";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useCreateWorkspace } from "../api/use-create-workspace";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Image from "next/image";
-import { ImageIcon } from "lucide-react";
+import { ArrowLeftCircleIcon, ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Workspace } from "../types";
+import { useUpdateWorkspace } from "../api/use-update-workspace.ts";
 
 interface EditWorkspaceFormProps {
   onCancel?: () => void;
@@ -35,7 +35,7 @@ export const EditWorkspaceForm = ({
   initialValues,
 }: EditWorkspaceFormProps) => {
   const router = useRouter();
-  const { mutate, isPending } = useCreateWorkspace();
+  const { mutate, isPending } = useUpdateWorkspace();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -73,7 +73,15 @@ export const EditWorkspaceForm = ({
 
   return (
     <Card className="w-full h-full border-none shadow-none">
-      <CardHeader className="flex px-7 py-4">
+      <CardHeader className="flex flex-row items-center gap-x-4 p-7 space-y-0">
+        <Button
+          size="sm"
+          variant="secondary"
+          onClick={onCancel ? onCancel : () => router.back()}
+        >
+          <ArrowLeftCircleIcon className="size-4 mr-1" />
+          Back
+        </Button>
         <CardTitle className="text-xl font-bold">
           {initialValues.name}
         </CardTitle>
@@ -138,16 +146,34 @@ export const EditWorkspaceForm = ({
                           onChange={handleImageChange}
                           disabled={isPending}
                         />
-                        <Button
-                          type="button"
-                          size="xs"
-                          variant="teritary"
-                          className="w-fit mt-2"
-                          onClick={() => inputRef.current?.click()}
-                          disabled={isPending}
-                        >
-                          Upload image
-                        </Button>
+                        {field.value ? (
+                          <Button
+                            type="button"
+                            size="xs"
+                            variant="destructive"
+                            className="w-fit mt-2"
+                            onClick={() => {
+                              field.onChange("");
+                              if (inputRef.current) {
+                                inputRef.current.value = "";
+                              }
+                            }}
+                            disabled={isPending}
+                          >
+                            Remove image
+                          </Button>
+                        ) : (
+                          <Button
+                            type="button"
+                            size="xs"
+                            variant="teritary"
+                            className="w-fit mt-2"
+                            onClick={() => inputRef.current?.click()}
+                            disabled={isPending}
+                          >
+                            Upload image
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -167,7 +193,7 @@ export const EditWorkspaceForm = ({
                 Cancel
               </Button>
               <Button type="submit" size="lg" disabled={isPending}>
-                Create workspace
+                Save changes
               </Button>
             </div>
           </form>
