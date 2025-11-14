@@ -36,11 +36,11 @@ export const getWorkspaces = async () => {
   }
 };
 
-interface GetWorkspaceParams {
+interface GetWorkspaceProps {
   workspaceId: string;
 }
 
-export const getWorkspace = async ({ workspaceId }: GetWorkspaceParams) => {
+export const getWorkspace = async ({ workspaceId }: GetWorkspaceProps) => {
   try {
     const { tables, account } = await createSessionClient();
     const user = await account.get();
@@ -60,6 +60,30 @@ export const getWorkspace = async ({ workspaceId }: GetWorkspaceParams) => {
     });
 
     return workspace;
+  } catch {
+    return null;
+  }
+};
+
+interface GetWorkspaceInfoProps {
+  workspaceId: string;
+}
+
+export const getWorkspaceInfo = async ({
+  workspaceId,
+}: GetWorkspaceInfoProps) => {
+  try {
+    const { tables } = await createSessionClient();
+
+    const workspace = await tables.getRow<Workspace>({
+      databaseId: DATABASE_ID,
+      tableId: WORKSPACES_ID,
+      rowId: workspaceId,
+    });
+
+    return {
+      name: workspace.name,
+    };
   } catch {
     return null;
   }
