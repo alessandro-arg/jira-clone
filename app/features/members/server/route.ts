@@ -45,7 +45,6 @@ const app = new Hono()
           const user = await users.get(member.userId);
           return {
             ...member,
-            $id: user.$id,
             name: user.name,
             email: user.email,
           };
