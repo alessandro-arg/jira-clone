@@ -31,7 +31,7 @@ export const useDeleteMember = () => {
       queryClient.invalidateQueries({ queryKey: ["members"] });
     },
     onError: () => {
-      toast.error("Failed to delete member");
+      toast.error("You can't remove this member");
     },
   });
 

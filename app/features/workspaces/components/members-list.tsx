@@ -20,8 +20,10 @@ import { useDeleteMember } from "../../members/api/use-delete-member";
 import { useUpdateMember } from "../../members/api/use-update-member";
 import { MemberRole } from "../../members/types";
 import { useConfirm } from "@/hooks/use-confirm";
+import { useRouter } from "next/navigation";
 
 export const MemberList = () => {
+  const router = useRouter();
   const workspaceId = useWorkspaceId();
   const [ConfirmDialog, confirm] = useConfirm(
     "Remove member",
@@ -60,12 +62,12 @@ export const MemberList = () => {
     <Card className="w-full h-full border-none shadow-none">
       <ConfirmDialog />
       <CardHeader className="flex flex-row items-center gap-x-4 p-7 space-y-0">
-        <Button size="sm" variant="secondary" onClick={() => {}}>
-          <Link href={`/workspaces/${workspaceId}`}>
+        <Link href={`/workspaces/${workspaceId}`}>
+          <Button size="sm" variant="secondary">
             <ArrowLeftCircleIcon className="size-4 mr-1" />
-          </Link>
-          Back
-        </Button>
+            Back
+          </Button>
+        </Link>
         <CardTitle className="text-xl font-bold">Members list</CardTitle>
       </CardHeader>
       <div className="px-7">
