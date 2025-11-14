@@ -172,8 +172,6 @@ const app = new Hono()
       return c.json({ error: "Unauthorized" }, 403);
     }
 
-    // TODO: Delete related rows (e.g., members, projects and tasks)
-
     await tables.deleteRow({
       databaseId: DATABASE_ID,
       tableId: WORKSPACES_ID,
@@ -181,6 +179,33 @@ const app = new Hono()
     });
 
     return c.json({ data: { $id: workspaceId } });
+  })
+  .post("/:workspaceId/reset-invite-code", sessionMiddleware, async (c) => {
+    const tables = c.get("tables");
+    const user = c.get("user");
+
+    const { workspaceId } = c.req.param();
+
+    const member = await getMember({
+      tables,
+      userId: user.$id,
+      workspaceId,
+    });
+
+    if (!member || member.role !== MemberRole.ADMIN) {
+      return c.json({ error: "Unauthorized" }, 403);
+    }
+
+    const workspace = await tables.updateRow({
+      databaseId: DATABASE_ID,
+      tableId: WORKSPACES_ID,
+      rowId: workspaceId,
+      data: {
+        inviteCode: generateInviteCode(8),
+      },
+    });
+
+    return c.json({ data: workspace });
   });
 
 export default app;
