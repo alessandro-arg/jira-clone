@@ -29,6 +29,10 @@ interface CreateProjectFormProps {
   onCancel?: () => void;
 }
 
+const createProjectFormSchema = createProjectSchema.omit({ workspaceId: true });
+
+type CreateProjectFormValues = z.infer<typeof createProjectFormSchema>;
+
 export const CreateProjectForm = ({ onCancel }: CreateProjectFormProps) => {
   const workspaceId = useWorkspaceId();
   const router = useRouter();
@@ -36,15 +40,15 @@ export const CreateProjectForm = ({ onCancel }: CreateProjectFormProps) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const form = useForm<z.infer<typeof createProjectSchema>>({
-    resolver: zodResolver(createProjectSchema.omit({ workspaceId: true })),
+  const form = useForm<CreateProjectFormValues>({
+    resolver: zodResolver(createProjectFormSchema),
     defaultValues: {
       name: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof createProjectSchema>) => {
-    const finalValues = {
+  const onSubmit = (values: CreateProjectFormValues) => {
+    const finalValues: z.infer<typeof createProjectSchema> = {
       ...values,
       workspaceId,
       image: values.image instanceof File ? values.image : "",
