@@ -31,7 +31,7 @@ export const Projects = () => {
         />
       </div>
       {data?.rows.map((project) => {
-        const href = `/workspaces/${workspaceId}/projects/${projectId}`;
+        const href = `/workspaces/${workspaceId}/projects/${project.$id}`;
         const isActive = pathname === href;
 
         return (
