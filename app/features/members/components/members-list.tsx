@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useWorkspaceId } from "../hooks/use-workspace-id";
+import { useWorkspaceId } from "../../workspaces/hooks/use-workspace-id";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeftCircleIcon, MoreVerticalIcon } from "lucide-react";
 import Link from "next/link";

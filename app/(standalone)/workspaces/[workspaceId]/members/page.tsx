@@ -1,5 +1,5 @@
 import { getCurrent } from "@/app/features/auth/queries";
-import MemberList from "@/app/features/workspaces/components/members-list";
+import MemberList from "@/app/features/members/components/members-list";
 import { redirect } from "next/navigation";
 
 const WorkspaceIdMembersPage = async () => {
