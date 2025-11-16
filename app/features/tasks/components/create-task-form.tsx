@@ -1,10 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { createTaskSchema } from "../schemas";
+import { useForm, type Resolver, type SubmitHandler } from "react-hook-form";
+import { createTaskSchema, type CreateTaskValues } from "../schemas";
 import { z } from "zod";
-import { useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -18,7 +17,6 @@ import DottedSeparator from "@/components/dotted-separator";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCreateTask } from "../api/use-create-task";
-import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useWorkspaceId } from "../../workspaces/hooks/use-workspace-id";
 import { DatePicker } from "@/components/date-picker";
@@ -53,25 +51,24 @@ export const CreateTaskForm = ({
   memberOptions,
 }: CreateTaskFormProps) => {
   const workspaceId = useWorkspaceId();
-  const router = useRouter();
   const { mutate, isPending } = useCreateTask();
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const form = useForm<CreateTaskFormValues>({
-    resolver: zodResolver(createTaskFormSchema),
+  const form = useForm<CreateTaskValues>({
+    resolver: zodResolver(createTaskSchema) as Resolver<CreateTaskValues>,
     defaultValues: {
+      name: "",
       workspaceId,
+      status: TaskStatus.TODO,
     },
   });
 
-  const onSubmit = (values: CreateTaskFormValues) => {
+  const onSubmit: SubmitHandler<CreateTaskValues> = (values) => {
     mutate(
-      { json: { ...values, workspaceId } },
+      { json: values },
       {
         onSuccess: () => {
           form.reset();
-          //TODO: redirect to new task
+          onCancel?.();
         },
       }
     );
@@ -119,7 +116,6 @@ export const CreateTaskForm = ({
               <FormField
                 control={form.control}
                 name="assigneeId"
-                className="w-full"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Assignee</FormLabel>
@@ -186,7 +182,6 @@ export const CreateTaskForm = ({
               <FormField
                 control={form.control}
                 name="projectId"
-                className="w-full"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Project</FormLabel>
