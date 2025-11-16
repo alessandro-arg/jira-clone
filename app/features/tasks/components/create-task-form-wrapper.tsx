@@ -26,9 +26,9 @@ export const CreateTaskFormWrapper = ({
     imageUrl: project.imageUrl,
   }));
 
-  const memberOptions = members?.rows.map((project) => ({
-    id: project.$id,
-    name: project.name,
+  const memberOptions = members?.rows.map((member) => ({
+    id: member.$id,
+    name: member.name,
   }));
 
   const isLoading = isLoadingMembers || isLoadingProjects;
