@@ -161,7 +161,9 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
         onClick={onReset}
       >
         <RotateCcw />
-        Reset filters
+        <span className="inline-block lg:hidden xl:inline-block">
+          Reset filters
+        </span>
       </Button>
     </div>
   );
