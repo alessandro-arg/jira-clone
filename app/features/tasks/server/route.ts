@@ -9,6 +9,7 @@ import { z } from "zod";
 import { Task, TaskStatus } from "../types";
 import { createAdminClient } from "@/lib/appwrite";
 import { Project } from "../../projects/types";
+import { useWorkspaceId } from "../../workspaces/hooks/use-workspace-id";
 
 const app = new Hono()
   .get(
@@ -183,6 +184,35 @@ const app = new Hono()
 
       return c.json({ data: task });
     }
-  );
+  )
+  .delete("/:taskId", sessionMiddleware, async (c) => {
+    const user = c.get("user");
+    const tables = c.get("tables");
+    const { taskId } = c.req.param();
+
+    const task = await tables.getRow<Task>({
+      databaseId: DATABASE_ID,
+      tableId: TASKS_ID,
+      rowId: taskId,
+    });
+
+    const member = await getMember({
+      tables,
+      workspaceId: task.workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json({ error: "Unauthorized" }, 403);
+    }
+
+    await tables.deleteRow({
+      databaseId: DATABASE_ID,
+      tableId: TASKS_ID,
+      rowId: taskId,
+    });
+
+    return c.json({ data: { $id: task.$id } });
+  });
 
 export default app;
