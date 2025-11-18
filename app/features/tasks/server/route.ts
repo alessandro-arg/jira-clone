@@ -213,6 +213,50 @@ const app = new Hono()
     });
 
     return c.json({ data: { $id: task.$id } });
-  });
+  })
+  .patch(
+    "/:taskId",
+    sessionMiddleware,
+    zValidator("json", createTaskSchema.partial()),
+    async (c) => {
+      const user = c.get("user");
+      const tables = c.get("tables");
+      const { name, status, description, projectId, dueDate, assigneeId } =
+        c.req.valid("json");
+      const { taskId } = c.req.param();
+
+      const existingTask = await tables.getRow<Task>({
+        databaseId: DATABASE_ID,
+        tableId: TASKS_ID,
+        rowId: taskId,
+      });
+
+      const member = await getMember({
+        tables,
+        workspaceId: existingTask.workspaceId,
+        userId: user.$id,
+      });
+
+      if (!member) {
+        return c.json({ error: "Unauthorized" }, 403);
+      }
+
+      const task = await tables.updateRow<Task>({
+        databaseId: DATABASE_ID,
+        tableId: TASKS_ID,
+        rowId: taskId,
+        data: {
+          name,
+          status,
+          projectId,
+          assigneeId,
+          ...(dueDate && { dueDate: dueDate.toISOString() }),
+          description,
+        },
+      });
+
+      return c.json({ data: task });
+    }
+  );
 
 export default app;

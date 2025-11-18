@@ -16,4 +16,5 @@ export type Task = Models.Row & {
   projectId: string;
   position: number;
   dueDate: string;
+  description: string;
 };
