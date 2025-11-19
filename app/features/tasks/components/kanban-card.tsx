@@ -4,6 +4,7 @@ import { TaskActions } from "./task-actions";
 import DottedSeparator from "@/components/dotted-separator";
 import { MemberAvatar } from "../../members/components/members-avatar";
 import { TaskDate } from "./task-date";
+import { ProjectAvatar } from "../../projects/components/project-avatar";
 
 interface KanbanCardProps {
   task: Task;
@@ -26,6 +27,14 @@ export const KanbanCard = ({ task }: KanbanCardProps) => {
         />
         <div className="size-1 rounded-full bg-neutral-300" />
         <TaskDate value={task.dueDate} className="text-xs" />
+      </div>
+      <div className="flex items-center gap-x-1.5">
+        <ProjectAvatar
+          name={task.project?.name ?? task.projectId}
+          image={task.project?.imageUrl}
+          fallbackClassName="text-[10px]"
+        />
+        <span className="text-sm font-medium">{task.project?.name}</span>
       </div>
     </div>
   );
