@@ -257,6 +257,56 @@ const app = new Hono()
 
       return c.json({ data: task });
     }
-  );
+  )
+  .get("/:taskId", sessionMiddleware, async (c) => {
+    const currentUser = c.get("user");
+    const tables = c.get("tables");
+    const { users } = await createAdminClient();
+    const { taskId } = c.req.param();
+
+    const task = await tables.getRow<Task>({
+      databaseId: DATABASE_ID,
+      tableId: TASKS_ID,
+      rowId: taskId,
+    });
+
+    const currentMember = await getMember({
+      tables,
+      workspaceId: task.workspaceId,
+      userId: currentUser.$id,
+    });
+
+    if (!currentMember) {
+      return c.json({ error: "Unauthorized" }, 403);
+    }
+
+    const project = await tables.getRow({
+      databaseId: DATABASE_ID,
+      tableId: PROJECTS_ID,
+      rowId: task.projectId,
+    });
+
+    const member = await tables.getRow({
+      databaseId: DATABASE_ID,
+      tableId: MEMBERS_ID,
+      rowId: task.assigneeId,
+    });
+
+    const user = await users.get(member.userId);
+
+    const assignee = {
+      ...member,
+      name: user.name,
+      email: user.email,
+    };
+
+    return c.json({
+      data: {
+        ...task,
+        project,
+        assignee,
+      },
+    });
+  });
 
 export default app;
