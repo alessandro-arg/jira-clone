@@ -76,7 +76,7 @@ export const EditTaskForm = ({
     },
   });
 
-  const onSubmit: SubmitHandler<CreateTaskValues> = (values) => {
+  const onSubmit: SubmitHandler<EditTaskFormValues> = (values) => {
     mutate(
       { json: values, param: { taskId: initialValues.$id } },
       {
