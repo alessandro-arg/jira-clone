@@ -28,36 +28,38 @@ Built with **Next.js 16**, **React 19**, **Tailwind CSS 4**, **Hono**, **A
 
 ### ✨ Key Features
 
-| Feature | Description |
-|---------|------------|
-| **📌 Kanban Board** | Drag‑and‑drop tasks using `@hello‑pangea/dnd`. |
-| **🗂 Project‑Based Structure** | Create multiple projects, each with tasks, metadata & members. |
-| **🎯 Task Management** | Priority, due dates, labels, descriptions, comments. |
-| **📅 Full Calendar View** | Visualise tasks/events in a calendar using `react‑big‑calendar`. |
-| **📊 Analytics & Insights** | Charts using Recharts for progress, workload, time tracking. |
-| **🎨 Modern UI** | Radix UI components + Tailwind CSS + Lucide icons. |
-| **🌓 Dark / Light Themes** | Theme switching with `next‑themes`. |
-| **🔐 Authentication** | Appwrite‑powered auth with multi‑user support. |
-| **⚡ Fast Data Layer** | React Query + Zod validation for performant state & data management. |
-| **📱 Fully Responsive** | Optimised for desktop and mobile devices. |
+| Feature                       | Description                                                          |
+| ----------------------------- | -------------------------------------------------------------------- |
+| **📌 Kanban Board**           | Drag‑and‑drop tasks using `@hello‑pangea/dnd`.                       |
+| **🗂 Project‑Based Structure** | Create multiple projects, each with tasks, metadata & members.       |
+| **🎯 Task Management**        | Priority, due dates, labels, descriptions, comments.                 |
+| **📅 Full Calendar View**     | Visualise tasks/events in a calendar using `react‑big‑calendar`.     |
+| **📊 Analytics & Insights**   | Charts using Recharts for progress, workload, time tracking.         |
+| **🎨 Modern UI**              | Radix UI components + Tailwind CSS + Lucide icons.                   |
+| **🌓 Dark / Light Themes**    | Theme switching with `next‑themes`.                                  |
+| **🔐 Authentication**         | Appwrite‑powered auth with multi‑user support.                       |
+| **⚡ Fast Data Layer**        | React Query + Zod validation for performant state & data management. |
+| **📱 Fully Responsive**       | Optimised for desktop and mobile devices.                            |
 
 ##
 
 ### 🛠 **Tech Stack**
 
 #### Frontend
-- **Next.js** (v16.0.1)  
-- **React** (v19.2.0)  
-- **Tailwind CSS** (v4)  
-- **Radix UI**, **Lucide Icons**, **React Icons**  
-- **React Hook Form + Zod**  
-- **React Query**  
-- **react‑big‑calendar**, **Recharts**  
+
+- **Next.js** (v16.0.1)
+- **React** (v19.2.0)
+- **Tailwind CSS** (v4)
+- **Radix UI**, **Lucide Icons**, **React Icons**
+- **React Hook Form + Zod**
+- **React Query**
+- **react‑big‑calendar**, **Recharts**
 
 #### Backend / API
-- **Hono** (API routing)  
-- **Appwrite (optional)**  
-- Validation via `@hono/zod‑validator` 
+
+- **Hono** (API routing)
+- **Appwrite (Databases & auth)**
+- Validation via `@hono/zod‑validator`
 
 ##
 
@@ -119,7 +121,7 @@ NEXT_APPWRITE_KEY =
 │  ├─ ui/                  # buttons, inputs, modals, date-picker, etc.
 │  └─ layout/              # sidebar, topbar, navigation, shell components
 │
-├─ hooks/                  
+├─ hooks/
 │  └─ use-confirm.tsx      # generic/global hooks only
 │
 ├─ lib/
@@ -136,12 +138,12 @@ NEXT_APPWRITE_KEY =
 
 ### 📜 Scripts
 
-| Command         | Action |
-|-----------------|--------|
+| Command         | Action                   |
+| --------------- | ------------------------ |
 | `npm run dev`   | Start development server |
 | `npm run build` | Build production version |
-| `npm run start` | Start production server |
-| `npm run lint`  | Run ESLint |
+| `npm run start` | Start production server  |
+| `npm run lint`  | Run ESLint               |
 
 ### 🚀 Deployment
 

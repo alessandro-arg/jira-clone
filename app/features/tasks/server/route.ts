@@ -9,7 +9,6 @@ import { z } from "zod";
 import { Task, TaskStatus } from "../types";
 import { createAdminClient } from "@/lib/appwrite";
 import { Project } from "../../projects/types";
-import { useWorkspaceId } from "../../workspaces/hooks/use-workspace-id";
 
 const app = new Hono()
   .get(
