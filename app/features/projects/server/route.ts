@@ -1,14 +1,9 @@
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import z, { json } from "zod";
+import { z } from "zod";
 import { getMember } from "../../members/utils";
-import {
-  DATABASE_ID,
-  IMAGES_BUCKET_ID,
-  PROJECTS_ID,
-  WORKSPACES_ID,
-} from "@/config";
+import { DATABASE_ID, IMAGES_BUCKET_ID, PROJECTS_ID } from "@/config";
 import { ID, Permission, Query, Role } from "node-appwrite";
 import { createProjectSchema, updateProjectSchema } from "../schemas";
 import { Project } from "../types";
@@ -48,6 +43,29 @@ const app = new Hono()
       return c.json({ data: projects });
     }
   )
+  .get("/:projectId", sessionMiddleware, async (c) => {
+    const user = c.get("user");
+    const tables = c.get("tables");
+    const { projectId } = c.req.param();
+
+    const project = await tables.getRow<Project>({
+      databaseId: DATABASE_ID,
+      tableId: PROJECTS_ID,
+      rowId: projectId,
+    });
+
+    const member = await getMember({
+      tables,
+      workspaceId: project.workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json({ error: "Unauthorized" }, 403);
+    }
+
+    return c.json({ data: project });
+  })
   .post(
     "/",
     sessionMiddleware,
