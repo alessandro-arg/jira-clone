@@ -33,7 +33,7 @@ const app = new Hono()
 
       if (!member) return c.json({ error: "Unauthorized" }, 403);
 
-      const projects = await tables.listRows({
+      const projects = await tables.listRows<Project>({
         databaseId: DATABASE_ID,
         tableId: PROJECTS_ID,
         queries: [
