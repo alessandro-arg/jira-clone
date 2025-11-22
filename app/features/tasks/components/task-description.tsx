@@ -17,13 +17,17 @@ export const TaskDescription = ({ task }: TaskDescriptionProps) => {
   const { mutate, isPending } = useUpdateTask();
 
   const handleSave = () => {
-    mutate({
-      json: { description: value || null },
-      param: { taskId: task.$id },
-    });
-    setTimeout(() => {
-      setIsEditing(false);
-    }, 400);
+    mutate(
+      {
+        json: { description: value || null },
+        param: { taskId: task.$id },
+      },
+      {
+        onSuccess: () => {
+          setIsEditing(false);
+        },
+      }
+    );
   };
 
   return (
