@@ -7,7 +7,7 @@ import { getMember } from "../utils";
 import { DATABASE_ID, MEMBERS_ID } from "@/config";
 import { Query } from "node-appwrite";
 import { ta } from "date-fns/locale";
-import { MemberRole } from "../types";
+import { Member, MemberRole } from "../types";
 
 const app = new Hono()
   .get(
@@ -34,7 +34,7 @@ const app = new Hono()
         );
       }
 
-      const members = await tables.listRows({
+      const members = await tables.listRows<Member>({
         databaseId: DATABASE_ID,
         tableId: MEMBERS_ID,
         queries: [Query.equal("workspaceId", workspaceId)],

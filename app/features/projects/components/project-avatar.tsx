@@ -18,7 +18,10 @@ export const ProjectAvatar = ({
   if (image) {
     return (
       <div
-        className={cn("relative size-6 rounded-md overflow-hidden", className)}
+        className={cn(
+          "relative size-6 rounded-md overflow-hidden shrink-0",
+          className
+        )}
       >
         <Image
           src={image}
