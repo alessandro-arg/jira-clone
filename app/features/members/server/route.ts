@@ -159,3 +159,4 @@ const app = new Hono()
   );
 
 export default app;
+export const dynamic = "force-dynamic";
