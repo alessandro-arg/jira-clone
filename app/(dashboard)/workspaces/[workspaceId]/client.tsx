@@ -187,8 +187,7 @@ export const MembersList = ({ data, total }: MembersListProps) => {
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.map((member) => (
             <li key={member.$id}>
-              {/* here we should remove the w-fit, so that cards have all the same width */}
-              <Card className="shadow-none rounded-lg overflow-hidden py-0 w-fit">
+              <Card className="shadow-none rounded-lg overflow-hidden py-0">
                 <CardContent className="p-3 flex flex-col items-center gap-x-2">
                   <MemberAvatar name={member.name} className="size-12" />
                   <div className="flex flex-col items-center overflow-hidden">

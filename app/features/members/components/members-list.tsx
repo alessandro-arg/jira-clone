@@ -20,10 +20,8 @@ import { useDeleteMember } from "../../members/api/use-delete-member";
 import { useUpdateMember } from "../../members/api/use-update-member";
 import { MemberRole } from "../../members/types";
 import { useConfirm } from "@/hooks/use-confirm";
-import { useRouter } from "next/navigation";
 
 export const MemberList = () => {
-  const router = useRouter();
   const workspaceId = useWorkspaceId();
   const [ConfirmDialog, confirm] = useConfirm(
     "Remove member",
@@ -48,14 +46,7 @@ export const MemberList = () => {
     const ok = await confirm();
     if (!ok) return;
 
-    deleteMember(
-      { param: { memberId } },
-      {
-        onSuccess: () => {
-          window.location.reload();
-        },
-      }
-    );
+    deleteMember({ param: { memberId } });
   };
 
   return (
@@ -83,9 +74,17 @@ export const MemberList = () => {
                 name={member.name}
               />
               <div className="flex flex-col">
-                <p className="text-sm font-medium">{member.name}</p>
+                <p className="text-sm font-medium">
+                  {member.name}
+                  {member.role === MemberRole.ADMIN && (
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-blue-100 text-blue-700 font-semibold ml-2">
+                      ADMIN
+                    </span>
+                  )}
+                </p>
                 <p className="text-xs font-muted-foreground">{member.email}</p>
               </div>
+              {}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button className="ml-auto" variant="secondary" size="icon">
