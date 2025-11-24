@@ -20,5 +20,5 @@ export type Task = Models.Row & {
   dueDate: string;
   description: string | null;
   assignee?: Partial<Member>;
-  project?: Project;
+  project?: Partial<Project>;
 };

@@ -36,7 +36,7 @@ interface CreateTaskFormProps {
   projectOptions: {
     id: string;
     name: string;
-    imageUrl: string;
+    imageUrl: string | undefined;
   }[];
   memberOptions: { id: string; name: string }[];
 }

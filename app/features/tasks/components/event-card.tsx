@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 interface EventCardProps {
   title: string;
   assignee: any;
-  project: Project | undefined;
+  project: Partial<Project> | undefined;
   status: TaskStatus;
   id: string;
 }
@@ -38,8 +38,8 @@ export const EventCard = ({
     router.push(`/workspaces/${workspaceId}/tasks/${id}`);
   };
 
-  if (!project) {
-    return;
+  if (!project?.name) {
+    return null;
   }
 
   return (
