@@ -2,12 +2,12 @@ import { createAdminClient } from "@/lib/appwrite";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import z from "zod";
+import { z } from "zod";
 import { getMember } from "../utils";
 import { DATABASE_ID, MEMBERS_ID } from "@/config";
 import { Query } from "node-appwrite";
-import { ta } from "date-fns/locale";
 import { Member, MemberRole } from "../types";
+import { handle } from "hono/vercel";
 
 const app = new Hono()
   .get(
@@ -159,4 +159,7 @@ const app = new Hono()
   );
 
 export default app;
-export const dynamic = "force-dynamic";
+export const GET = handle(app);
+export const POST = handle(app);
+export const PATCH = handle(app);
+export const DELETE = handle(app);

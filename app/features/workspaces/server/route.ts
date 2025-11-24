@@ -17,6 +17,7 @@ import { z } from "zod";
 import { endOfMonth, startOfMonth, subMonths } from "date-fns";
 import { Workspace } from "../types";
 import { TaskStatus } from "../../tasks/types";
+import { handle } from "hono/vercel";
 
 const app = new Hono()
   .get("/", sessionMiddleware, async (c) => {
@@ -466,3 +467,7 @@ const app = new Hono()
   });
 
 export default app;
+export const GET = handle(app);
+export const POST = handle(app);
+export const PATCH = handle(app);
+export const DELETE = handle(app);

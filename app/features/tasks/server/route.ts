@@ -9,6 +9,7 @@ import { z } from "zod";
 import { Task, TaskStatus } from "../types";
 import { createAdminClient } from "@/lib/appwrite";
 import { Project } from "../../projects/types";
+import { handle } from "hono/vercel";
 
 const app = new Hono()
   .get(
@@ -375,3 +376,7 @@ const app = new Hono()
   );
 
 export default app;
+export const GET = handle(app);
+export const POST = handle(app);
+export const PATCH = handle(app);
+export const DELETE = handle(app);
