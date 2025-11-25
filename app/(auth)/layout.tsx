@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -13,23 +12,26 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   const pathname = usePathname();
-  const { theme, systemTheme } = useTheme();
-
-  const currentTheme = theme === "system" ? systemTheme : theme;
-
-  const logoSrc = currentTheme === "dark" ? "/logo-dark.svg" : "/logo.svg";
 
   return (
     <main className="bg-neutral-100 dark:bg-background min-h-screen">
       <div className="mx-auto max-w-screen-2xl p-4">
         <nav className="flex justify-between items-center">
           <Image
-            src={logoSrc}
+            src="/logo.svg"
             alt="logo"
             width={152}
             height={56}
             loading="eager"
-            className="h-14 w-[152px]"
+            className="h-14 w-[152px] dark:hidden"
+          />
+          <Image
+            src="/logo-dark.svg"
+            alt="logo"
+            width={152}
+            height={56}
+            loading="eager"
+            className="h-14 w-[152px] hidden dark:block"
           />
           <div className="flex items-center gap-4">
             <ThemeToggle />

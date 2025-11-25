@@ -37,3 +37,17 @@
 .rbc-off-range-bg {
   background: inherit;
 }
+
+.rbc-day-bg.rbc-today {
+  @apply bg-blue-100;
+}
+
+/* Month view: today's background in dark mode */
+.dark .rbc-day-bg.rbc-today {
+  @apply bg-blue-900/30;
+}
+
+/* Optional: header cell (day number) styling for today */
+.rbc-date-cell.rbc-now {
+  @apply font-semibold;
+}

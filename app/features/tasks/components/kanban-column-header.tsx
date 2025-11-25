@@ -44,12 +44,12 @@ export const KanbanColumnHeader = ({
       <div className="flex items-center gap-x-2">
         {icon}
         <h2 className="text-sm font-medium">{snakeCaseToTitleCase(board)}</h2>
-        <div className="size-5 flex items-center justify-center rounded-md bg-neutral-200 text-xs text-neutral-700 font-medium">
+        <div className="size-5 flex items-center justify-center rounded-md bg-neutral-200 dark:bg-neutral-600 text-xs text-neutral-700 dark:text-primary font-medium">
           {taskCount}
         </div>
       </div>
       <Button onClick={open} variant="ghost" size="icon" className="size-5">
-        <PlusIcon className="size-4 text-neutral-500" />
+        <PlusIcon className="size-4 text-neutral-500 dark:text-primary " />
       </Button>
     </div>
   );

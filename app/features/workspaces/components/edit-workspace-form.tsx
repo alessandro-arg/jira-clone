@@ -120,7 +120,7 @@ export const EditWorkspaceForm = ({
     <div className="flex flex-col gap-y-4">
       <DeleteDialog />
       <ResetDialog />
-      <Card className="w-full h-full border-none shadow-none">
+      <Card className="w-full h-full border-none shadow-none bg-card">
         <CardHeader className="flex flex-row items-center gap-x-4 p-7 space-y-0">
           <Button
             size="sm"
@@ -131,7 +131,7 @@ export const EditWorkspaceForm = ({
             Back
           </Button>
           <CardTitle className="text-xl font-bold">
-            {initialValues.name}
+            Workspace settings
           </CardTitle>
         </CardHeader>
 
@@ -249,7 +249,7 @@ export const EditWorkspaceForm = ({
           </Form>
         </CardContent>
       </Card>
-      <Card className="w-full h-full border-none shadow-none">
+      <Card className="w-full h-full border-none shadow-none bg-card">
         <CardContent className="p-7">
           <div className="flex flex-col">
             <h3 className="font-bold">Invite members</h3>

@@ -47,7 +47,7 @@ const CustomToolbar = ({ date, onNavigate }: CustomToolbarProps) => {
       >
         <ChevronLeftIcon className="size-4" />
       </Button>
-      <div className="flex items-center border border-input rounded-md px-3 py-2 h-8 justify-center w-full lg:w-auto cursor-default">
+      <div className="bg-card flex items-center border border-input rounded-md px-3 py-2 h-8 justify-center w-full lg:w-auto cursor-default">
         <CalendarIcon className="size-4 mr-2" />
         <p className="text-sm">{format(date, "MMMM yyyy")}</p>
       </div>

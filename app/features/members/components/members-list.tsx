@@ -77,48 +77,49 @@ export const MemberList = () => {
                 <p className="text-sm font-medium">
                   {member.name}
                   {member.role === MemberRole.ADMIN && (
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-blue-100 text-blue-700 font-semibold ml-2">
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-blue-100 dark:bg-muted text-blue-700 dark:text-blue-500 font-semibold ml-2">
                       ADMIN
                     </span>
                   )}
                 </p>
-                <p className="text-xs font-muted-foreground">{member.email}</p>
+                <p className="text-xs text-muted-foreground">{member.email}</p>
               </div>
-              {}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button className="ml-auto" variant="secondary" size="icon">
-                    <MoreVerticalIcon className="size-4 text-muted-foreground" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent side="bottom" align="end">
-                  <DropdownMenuItem
-                    className="font-medium"
-                    onClick={() =>
-                      handleUpdateMember(member.$id, MemberRole.ADMIN)
-                    }
-                    disabled={isUpdatingMember}
-                  >
-                    Set as Administrator
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className="font-medium"
-                    onClick={() =>
-                      handleUpdateMember(member.$id, MemberRole.MEMBER)
-                    }
-                    disabled={isUpdatingMember}
-                  >
-                    Set as Member
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className="font-medium text-amber-700"
-                    onClick={() => handleDeleteMember(member.$id)}
-                    disabled={isDeletingMember}
-                  >
-                    Remove {member.name}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {member.role === MemberRole.ADMIN && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button className="ml-auto" variant="secondary" size="icon">
+                      <MoreVerticalIcon className="size-4 text-muted-foreground dark:text-primary" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent side="bottom" align="end">
+                    <DropdownMenuItem
+                      className="font-medium"
+                      onClick={() =>
+                        handleUpdateMember(member.$id, MemberRole.ADMIN)
+                      }
+                      disabled={isUpdatingMember}
+                    >
+                      Set as Administrator
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="font-medium"
+                      onClick={() =>
+                        handleUpdateMember(member.$id, MemberRole.MEMBER)
+                      }
+                      disabled={isUpdatingMember}
+                    >
+                      Set as Member
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="font-medium text-amber-700 dark:text-red-400"
+                      onClick={() => handleDeleteMember(member.$id)}
+                      disabled={isDeletingMember}
+                    >
+                      Remove {member.name}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
             {index < data.rows.length - 1 && <Separator className="my-2.5" />}
           </Fragment>
