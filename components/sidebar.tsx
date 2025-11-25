@@ -15,7 +15,15 @@ export const Sidebar = () => {
           width={164}
           height={48}
           loading="eager"
-          className="w-41 h-12"
+          className="w-41 h-12 dark:hidden"
+        />
+        <Image
+          src="/logo-dark.svg"
+          alt="logo"
+          width={164}
+          height={48}
+          loading="eager"
+          className="w-41 h-12 hidden dark:block"
         />
       </Link>
       <DottedSeparator className="my-4" />

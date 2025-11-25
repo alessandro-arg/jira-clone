@@ -27,12 +27,12 @@ export const WorkspaceSwithcer = () => {
   return (
     <div className="flex flex-col gap-y-2">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-medium uppercase text-neutral-500">
+        <p className="text-sm font-medium uppercase text-muted-foreground">
           Workspaces
         </p>
         <RiAddCircleFill
           onClick={open}
-          className="size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition"
+          className="size-5 text-muted-foreground cursor-pointer hover:opacity-75 transition"
         />
       </div>
       <Select onValueChange={onSelect} value={workspaceId}>
