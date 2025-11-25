@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { QueryProvider } from "@/components/query-provider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -33,11 +34,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.className, "antialiased min-h-screen")}>
-        <QueryProvider>
-          <Toaster />
-          <NuqsAdapter>{children}</NuqsAdapter>
-        </QueryProvider>
+      <body
+        className={cn(
+          inter.className,
+          "antialiased min-h-screen bg-background text-foreground"
+        )}
+      >
+        <ThemeProvider>
+          <QueryProvider>
+            <Toaster />
+            <NuqsAdapter>{children}</NuqsAdapter>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

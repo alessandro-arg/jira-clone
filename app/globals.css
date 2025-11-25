@@ -118,6 +118,8 @@
   }
   body {
     @apply bg-background text-foreground;
+    padding-top: var(--safe-top);
+    padding-bottom: var(--safe-bottom);
   }
 }
 
