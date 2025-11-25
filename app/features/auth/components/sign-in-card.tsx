@@ -6,7 +6,13 @@ import { FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import DottedSeparator from "@/components/dotted-separator";
 import { Input } from "@/components/ui/input";
 import {
@@ -38,8 +44,12 @@ export default function SignInCard() {
 
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
-      <CardHeader className="flex items-center justify-center text-center p-7">
+      <CardHeader className="flex flex-col items-center justify-center text-center p-7">
         <CardTitle className="text-2xl">Welcome back!</CardTitle>
+        <CardDescription>
+          If you want to test the app, click{" "}
+          <Button variant="transparent">here</Button>.
+        </CardDescription>
       </CardHeader>
       <div className="px-7">
         <DottedSeparator />
@@ -98,7 +108,7 @@ export default function SignInCard() {
           <Button
             type="submit"
             disabled={isPending}
-            variant="secondary"
+            variant="outline"
             size="lg"
             className="w-full"
           >
@@ -110,7 +120,7 @@ export default function SignInCard() {
           <Button
             type="submit"
             disabled={isPending}
-            variant="secondary"
+            variant="outline"
             size="lg"
             className="w-full"
           >
@@ -125,7 +135,9 @@ export default function SignInCard() {
       <CardContent className="p-7 flex items-center justify-center">
         <p>Don&apos;t have an account?</p>
         <Link href="/sign-up">
-          <span className="text-blue-700">&nbsp;Sign up</span>
+          <span className="text-blue-700 dark:text-blue-500">
+            &nbsp;Sign up
+          </span>
         </Link>
       </CardContent>
     </Card>

@@ -47,15 +47,20 @@ export default function SignUpCard() {
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
       <CardHeader className="flex flex-col items-center justify-center text-center p-7">
-        <CardTitle className="text-2xl">SignUp</CardTitle>
+        <CardTitle className="text-2xl">Sign Up</CardTitle>
         <CardDescription>
-          By signing up, you agree to our{" "}
+          By signing up, you agree to our
+          <br />
           <Link href="/privacy">
-            <span className="text-blue-700">Privacy Policy</span>
+            <span className="text-blue-700 dark:text-blue-500">
+              Privacy Policy
+            </span>
           </Link>{" "}
           and{" "}
           <Link href="/terms">
-            <span className="text-blue-700">Terms of Service</span>
+            <span className="text-blue-700 dark:text-blue-500">
+              Terms of Service
+            </span>
           </Link>
         </CardDescription>
       </CardHeader>
@@ -160,7 +165,7 @@ export default function SignUpCard() {
       <CardContent className="p-7 flex items-center justify-center">
         <p>Already have an account?</p>
         <Link href="/sign-in">
-          <span className="text-blue-700">&nbsp;Login</span>
+          <span className="text-blue-700 dark:text-blue-500">&nbsp;Login</span>
         </Link>
       </CardContent>
     </Card>

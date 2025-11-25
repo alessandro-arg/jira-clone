@@ -5,12 +5,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap rounded-md text-sm font-semibold transition-all disabled:pointer-events-none disabled:bg-neutral-100 disabled:from-neutral-100 disabled:to-neutral-100 disabled:text-neutral-300 border border-neutral-200 shadow-sm [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap rounded-md text-sm font-semibold transition-all disabled:pointer-events-none disabled:bg-neutral-100 disabled:from-neutral-100 disabled:to-neutral-100 disabled:text-neutral-300 border border-neutral-200 dark:border-neutral-600 shadow-sm [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
         primary:
-          "bg-gradient-to-b from-blue-600 to-blue-700 text-primary-foreground hover:from-blue-700 hover:to-blue-700",
+          "bg-gradient-to-b from-blue-600 to-blue-700 text-primary-foreground dark:text-neutral-100 hover:from-blue-700 hover:to-blue-700",
         destructive:
           "bg-gradient-to-b from-amber-600 to-amber-700 text-primary-foreground hover:from-amber-700 hover:to-amber-700",
         outline:
@@ -19,6 +19,8 @@ const buttonVariants = cva(
         ghost:
           "border-transparent shadow-none hover:bg-accent hover:text-accent-foreground",
         muted: "bg-neutral-200 text-neutral-600 hover:bg-neutral-200/80",
+        transparent:
+          "bg-transparent border-none p-0! hover:text-black dark:hover:text-white shadow-none",
         teritary:
           "bg-blue-100 text-blue-600 border-transparent hover:bg-blue-200 shadow-none",
       },

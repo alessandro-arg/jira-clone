@@ -33,7 +33,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           />
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            <Button asChild variant="secondary">
+            <Button asChild variant="outline">
               <Link href={pathname === "/sign-in" ? "/sign-up" : "/sign-in"}>
                 {pathname === "/sign-in" ? "Sign up" : "Login"}
               </Link>
