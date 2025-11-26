@@ -11,7 +11,6 @@ Project &amp; Task Management Platform
 
 ![Repo Size](https://img.shields.io/github/repo-size/alessandro-arg/coordina?color=%2300d26a&style=for-the-badge)
 ![Last Commit](https://img.shields.io/github/last-commit/alessandro-arg/coordina?style=for-the-badge)
-![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)
 ![Issues](https://img.shields.io/github/issues/alessandro-arg/coordina?style=for-the-badge)
 
 Coordina is a modern, visually polished **project and task management platform**, inspired by tools like Jira, Trello, and Linear. Built with **Next.js 16**, **React 19**, **Tailwind CSS 4**, **Hono**, **Appwrite**, and **React Query**, it offers an intuitive Kanban workflow, analytics dashboards, full‑calendar scheduling, and flexible project organization.
