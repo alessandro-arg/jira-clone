@@ -68,6 +68,7 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
       newTasks[status as TaskStatus].sort((a, b) => a.position - b.position);
     });
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTasks(newTasks);
   }, [data]);
 
