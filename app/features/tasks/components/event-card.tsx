@@ -5,6 +5,7 @@ import { MemberAvatar } from "../../members/components/members-avatar";
 import { ProjectAvatar } from "../../projects/components/project-avatar";
 import { useWorkspaceId } from "../../workspaces/hooks/use-workspace-id";
 import { useRouter } from "next/navigation";
+import { Member } from "../../members/types";
 
 interface EventCardProps {
   title: string;

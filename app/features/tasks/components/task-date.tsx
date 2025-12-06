@@ -1,6 +1,5 @@
 import { differenceInDays, format } from "date-fns";
 import { cn } from "@/lib/utils";
-import { Divide } from "lucide-react";
 
 interface TaskDateProps {
   value: string;
