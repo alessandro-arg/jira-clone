@@ -18,8 +18,6 @@ Coordina is a modern, visually polished **project and task management platform**
 > A sleek and powerful way to plan, track, and manage tasks - individually or collaboratively.
 
 ### 🌍 Live Demo
-
-🚧 **First deployment: 11/25** </br>
 🖥  <a href="https://coordina.alessandro-argenziano.com" target="_blank">
 **Coordina**
 </a>
